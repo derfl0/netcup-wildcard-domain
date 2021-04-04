@@ -1,0 +1,19 @@
+version: "2"
+services:
+  certbot:
+    image: neilpang/acme.sh
+    volumes:
+      - ./certs:/acme.sh
+    environment:
+
+      # Api access (see https://github.com/acmesh-official/acme.sh/wiki/dnsapi#51-use-netcup-dns-api-to-automatically-issue-cert )
+
+      # Generate Key and PW here: https://www.customercontrolpanel.de/run/daten_aendern.php?sprung=api
+      NC_Apikey: paste_your_key_here
+      NC_Apipw: paste_your_pw_here
+
+      # This is your netcup customer id
+      NC_CID: 12345
+    
+    # Modify *.example.com to your wildcard domain
+    command: --issue --dns dns_netcup -d *.example.com
